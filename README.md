@@ -1,3 +1,5 @@
+# -- THIS IS STILL UNDER DEVELOPMENT --
+
 # kashoot
 
 Do you hate the player limit of Kahoot! games? Or the fact that they're so prone to spam bots?
