@@ -1,7 +1,6 @@
 //Functions
 function changeColor(color) {
 	$("body").css("background-color", "rgb(" + color + ")");
-	console.log("called");
 }
 
 function cycleColor() {
