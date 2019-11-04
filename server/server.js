@@ -1,6 +1,7 @@
 //Load dependencies
 const WebSocket = require('ws');
 const request = require('request');
+const uuid = require('uuid/v4');
 
 //Create websocket server
 const wss = new WebSocket.Server({ port: 5555 });
@@ -12,6 +13,11 @@ function broadcast(data) {
 	wss.clients.forEach(ws => {
 		ws.send(data.data);
 	});
+}
+
+//Sends data to a specfic client
+function sendToClient(data) {
+  wss.clients.filter()
 }
 
 //Pings all clients to see if they are still connected
@@ -60,8 +66,11 @@ function verifyCaptcha(secret, response) {
 
 //--Websocket server event handlers--//
 wss.on('connection', function connection(ws) {
-  //Sets clients status to alive
-  ws.isAlive = true;
+  //Generate unique identifier for connection
+  ws.id = uuid();
+  //Send the uuid to the client
+  let response = {'type': 'uuid','data': ws.id};
+  ws.send(JSON.stringify(response));
   //Incoming message event handler
   ws.on('message', data => {
     data = JSON.parse(data);
@@ -71,6 +80,10 @@ wss.on('connection', function connection(ws) {
       console.log("authenticating client response");
       verifyCaptcha("", data.token);
     }
+  });
+  //When client closes connection
+  ws.on('close', data => {
+    //Do somewthing
   });
 });
 

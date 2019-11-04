@@ -2,8 +2,9 @@
 const server = "";
 
 //Connects to server
-var connection = new WebSocket(server);
-var reconnect = true;
+var reconnect,
+	connection,
+	firstConnect = true;
 
 //Functions
 //Changes color of the body bg
@@ -19,11 +20,6 @@ function cycleColor() {
 	setTimeout("changeColor('9, 227, 212')", 24000);
 }
 
-//Reconnect to the server if needed
-function connect() {
-	connection = new WebSocket(server);
-}
-
 function dotheshake() {
 	//Do something here
 }
@@ -31,6 +27,48 @@ function dotheshake() {
 function error(type) {
 	if (type == "emptypin") {
 		dotheshake();
+	}
+}
+
+//Webhook
+function connect() {
+	//Attempt to connect to server
+	if (firstConnect) {
+		console.log("Connecting to server...");
+  		connection = new WebSocket(server);
+	} else {
+		if (connection.readyState !== WebSocket.OPEN) {
+			connection.close();
+			console.log("Connecting to server...");
+  			connection = new WebSocket(server);
+  		}
+	}
+
+	//On connection open
+	connection.onopen = function() {
+		firstConnect = false;
+		//Do the rest of the script
+		console.log("Connected to server");
+		clearInterval(reconnect);
+	}
+
+	//Listens for new messages
+	connection.onmessage = function(e) {
+		let data = JSON.parse(e.data);
+		if (data.type == "uuid") {
+			//Generates a date for the cookie to expire on
+			let date = new Date();
+			date.setDate(date.getDate() + 1);
+			//Sets the cookie *om nom*
+			document.cookie = "uuid=" + data.data + "; expires=" + date.toGMTString();
+			console.log(data.data);
+		}
+	}
+
+	//Reconnect to server if disconnected
+	connection.onclose = function(e) {
+	   	console.log("Connection closed, reconnecting...");
+	   	connect();
 	}
 }
 
@@ -44,23 +82,6 @@ async function send(data) {
 			resolve('Not connected to server');
 		}
 	});
-}
-
-//Webhook
-//On connection open
-connection.onopen = function() {
-	console.log("Connected to server");
-	connect = "";
-}
-
-//Listens for new messages
-connection.onmessage = function(e) {
-	console.log(e.data);
-}
-
-//Reconnect to server if disconnected
-connection.onclose = function(e) {
-    //Do something
 }
 
 //Document ready
@@ -96,17 +117,3 @@ $(document).ready(function() {
 });
 
 connect();
-
-setInterval(function() {
-	if (connection.readyState !== WebSocket.OPEN) {
-		reconnect = false;
-		connection.close();
-		console.log("Disconnected from server. Retrying...");
-	  	connection = new WebSocket(server);
-	} else {
-		if (!reconnect) {
-			reconnect = true;
-			console.log("Reconnected to server.");
-		}
-	}
-}, 5000);
