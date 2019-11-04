@@ -73,6 +73,10 @@ body {
 	cursor: pointer;
 }
 
+.grecaptcha-badge{
+	visibility: collapse !important;  
+}
+
 @media only screen and (max-width: 768px) {
 	#join-lobby {
 		min-width: 60%;

@@ -1,0 +1,26 @@
+{
+  "name": "kashoot",
+  "version": "1.0.0",
+  "description": "kashoots kahoot away",
+  "main": "server.js",
+  "dependencies": {
+    "mongodb": "^3.3.3",
+    "request": "^2.88.0",
+    "ws": "^7.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Garlicvideos/kashoot.git"
+  },
+  "author": "Garlicvideos",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Garlicvideos/kashoot/issues"
+  },
+  "homepage": "https://github.com/Garlicvideos/kashoot#readme"
+}
