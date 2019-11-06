@@ -20,6 +20,7 @@ function cycleColor() {
 	setTimeout("changeColor('9, 227, 212')", 24000);
 }
 
+//User input has an error
 function dotheshake() {
 	//Do something here
 }
@@ -28,6 +29,23 @@ function error(type) {
 	if (type == "emptypin") {
 		dotheshake();
 	}
+}
+
+//Get a kewkie
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
 
 //Webhook
@@ -62,6 +80,23 @@ function connect() {
 			//Sets the cookie *om nom*
 			document.cookie = "uuid=" + data.data + "; expires=" + date.toGMTString();
 			console.log(data.data);
+		} else if (data.type == "query") {
+			//If the query is asking for identification
+			if (data.query = "identifier") {
+				//Get the uuid cookie
+				let uuid = getCookie("uuid");
+				//If it exists
+				if (uuid != "") {
+					console.log(uuid);
+					let data = {};
+					data.type = "identifier";
+					data.id = uuid;
+					//Sends the UUID to the server
+					send(data);
+				}
+			}
+		} else {
+			console.log(data);
 		}
 	}
 
