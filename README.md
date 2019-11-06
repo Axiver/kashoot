@@ -1,7 +1,6 @@
 # kashoot
 
-Do you hate the player limit of Kahoot! games? Or the fact that they're so prone to spam bots?
-Worry no more because kashoot is here. With this clone of Kahoot!, it _kashoots_ those problems away. Gone are the days of lobby flooding, gone are the days of only being able to have 1200 players in your Kahoot! lobby. Now, the only limitation is your home computer/server that this is being hosted on, because this repo contains both the server and the client for **kashoot**, making the possibilities endless.
+This is a lightweight and fast clone of Kahoot! written from the ground-up that _kashoots_ all the flaws Kahoot! has away. This includes but is not limited to, bot immunity, no player limit, and a whole lot more.
 
 ## Getting started
 
@@ -12,6 +11,10 @@ These instructions will get you a copy of the project up and running on your loc
 You need Node.js and npm (which comes with Node.js) to run the server.
 
 [Download Node.js and npm](https://nodejs.org/en/)
+
+MongoDB is required, so you will need to install that.
+
+[Download MongoDB](https://www.mongodb.com/)
 
 You will also need a webserver of your choice, such as [Apache](https://www.apache.org/) or [Nginx](https://www.nginx.com/)
 
