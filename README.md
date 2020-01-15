@@ -1,4 +1,5 @@
-# -- THIS IS STILL UNDER DEVELOPMENT --
+# Repo will be updated with the working code when the World's Largest Kahoot is re-hosted. Eta: soon.
+# Keep updated at [r/worldslargestkahoot](https://reddit.com/r/worldslargestkahoot)
 
 # kashoot
 
